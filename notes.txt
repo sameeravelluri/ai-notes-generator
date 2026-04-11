@@ -1,0 +1,6 @@
+[20:44:01] project is my spam classifier
+[20:44:10] image as standard
+[20:44:16] what is the text data first I clean the data
+[20:44:22] using techniques like vectorisation
+[20:44:29] machine learning algorithms to
+[20:44:35] model the system can automatically detects from email
