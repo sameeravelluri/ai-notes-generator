@@ -1,6 +1,5 @@
 SpeechRecognition
 sounddevice
 numpy
-pyaudio
 transformers
 torch
