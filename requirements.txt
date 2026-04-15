@@ -1,5 +1,4 @@
-SpeechRecognition
-sounddevice
+SpeechRecognition==3.8.1
 numpy
 transformers
 torch
