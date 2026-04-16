@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Notes Dashboard</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+            background: #f4f6f9;
+        }
+
+        .header {
+            background: #4a00e0;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 28px;
+        }
+
+        .container {
+            padding: 30px;
+            text-align: center;
+        }
+
+        button {
+            background: #ff9800;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            margin: 10px;
+            font-size: 16px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            margin: 20px auto;
+            width: 70%;
+            border-radius: 15px;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+            text-align: left;
+        }
+
+        .output {
+            font-size: 16px;
+            color: #333;
+            white-space: pre-line;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ✅ ADDED THIS -->
+    <div style="text-align:right; padding:10px;">
+        Welcome {{ username }} |
+        <a href="/logout">Logout</a>
+    </div>
+
+    <div class="header">
+        🎤 AI Notes Generator Dashboard
+    </div>
+
+    <div class="container">
+
+        <button onclick="startRecording()">▶️ Start</button>
+        <button onclick="stopRecording()">⏹️ Stop</button>
+
+        <div class="card">
+            <h2>📝 Transcript (with Timestamp)</h2>
+            <p class="output" id="transcript">---</p>
+        </div>
+
+        <div class="card">
+            <h2>🧠 Summary</h2>
+            <p class="output" id="summary">---</p>
+        </div>
+
+    </div>
+<script>
+    let recording = false;
+
+    function startRecording() {
+        recording = true;
+
+        fetch('/clear_notes');
+
+        document.getElementById("transcript").innerText = "";
+        document.getElementById("summary").innerText = "";
+
+        recordLoop();
+    }
+
+    function stopRecording() {
+        recording = false;
+    }
+
+    function recordLoop() {
+        if (!recording) return;
+
+        fetch('/record')
+        .then(res => res.json())
+        .then(data => {
+
+            if (data.transcript !== "") {
+                // 🔥 append continuously like video
+                document.getElementById("transcript").innerText += data.transcript + "\n";
+                
+                // 🔥 update summary smoothly
+                document.getElementById("summary").innerText = data.summary;
+            }
+
+            // 🔥 VERY FAST LOOP (IMPORTANT)
+            setTimeout(recordLoop, 150);
+        });
+    }
+</script>
+  
+</body>
+</html>
