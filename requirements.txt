@@ -1,5 +1,6 @@
-SpeechRecognition==3.8.1
+SpeechRecognition
 numpy
 transformers
 torch
 flask
+flask_sqlalchemy
