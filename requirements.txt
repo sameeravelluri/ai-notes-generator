@@ -3,6 +3,6 @@ numpy
 transformers
 torch
 flask
-flask_sqlalchemy
+Flask-SQLAlchemy
 flask_login
 werkzeug
