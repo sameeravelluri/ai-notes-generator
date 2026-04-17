@@ -1,1 +1,94 @@
-
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Notes Dashboard</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+            background: #f4f6f9;
+        }
+        .header {
+            background: #4a00e0;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 28px;
+        }
+        .container {
+            padding: 30px;
+            text-align: center;
+        }
+        button {
+            background: #ff9800;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        button:hover {
+            background: #e68900;
+        }
+        .card {
+            background: white;
+            padding: 20px;
+            margin: 20px auto;
+            width: 70%;
+            border-radius: 15px;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+            text-align: left;
+        }
+        .card h2 {
+            margin-top: 0;
+            color: #333;
+        }
+        .output {
+            font-size: 18px;
+            color: #555;
+        }
+        .footer {
+            text-align: center;
+            padding: 10px;
+            background: #ddd;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        🎤 AI Notes Generator Dashboard
+    </div>
+    <div class="container">
+        <button onclick="startRecording()">🎙️ Start Recording</button>
+        <div class="card">
+            <h2>📝 Transcript</h2>
+            <p class="output" id="transcript">Your speech will appear here...</p>
+        </div>
+        <div class="card">
+            <h2>🧠 Summary</h2>
+            <p class="output" id="summary">Summary will appear here...</p>
+        </div>
+    </div>
+    <div class="footer">
+        © 2026 AI Notes Project
+    </div>
+    <script>
+        function startRecording() {
+            document.getElementById("transcript").innerText = "🎤 Listening...";
+            document.getElementById("summary").innerText = "...";
+            fetch('/record')
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById("transcript").innerText = data.transcript;
+                document.getElementById("summary").innerText = data.summary;
+            })
+            .catch(error => {
+                document.getElementById("transcript").innerText = "Error occurred!";
+            });
+        }
+    </script>
+</body>
+</html>
